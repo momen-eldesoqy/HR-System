@@ -1,0 +1,38 @@
+CREATE DATABASE mydb DEFAULT CHARACTER SET UTF8 DEFAULT COLLATE UTF8_GENERAL_CI;
+USE mydb
+CREATE TABLE Department (
+ dept_id INT PRIMARY KEY,
+ dept_name VARCHAR(150) UNIQUE,
+ dept_desc VARCHAR(100)
+);
+CREATE TABLE Project(
+    project_id INT PRIMARY KEY,
+    project_name VARCHAR (150),
+    project_desc VARCHAR(100),
+    dept_id INT,
+    FOREIGN KEY(dept_id) REFERENCES Department(dept_id)
+);
+CREATE TABLE Employee(
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(120) UNIQUE,
+    salary DOUBLE,
+    DOB DATE,
+    position VARCHAR(100),
+    dept_id INT,
+    FOREIGN KEY(dept_id) REFERENCES Department(dept_id)
+);
+CREATE TABLE Emp_car(
+    emp_id INT,
+    make VARCHAR(50),
+    model VARCHAR(50),
+    next_maintinance_date DATE,
+    FOREIGN KEY(emp_id) REFERENCES Employee(emp_id)
+); 
+
+CREATE TABLE workOn(
+    dept_id INT,
+    project_id INT,
+    PRIMARY KEY(dept_id,project_id),
+    FOREIGN KEY(dept_id) REFERENCES Department(dept_id),
+    FOREIGN KEY(project_id) REFERENCES Project(project_id)
+);
